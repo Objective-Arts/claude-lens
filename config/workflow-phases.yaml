@@ -1,0 +1,111 @@
+# Workflow Phases
+#
+# These phases are used BOTH:
+# - As standalone commands: /plan, /structure, /implement, etc.
+# - As Ralph loop steps: cycles through all phases in order
+#
+# Each phase has experts suited to that activity.
+
+phases:
+  plan:
+    description: Understand requirements, design approach
+    experts:
+      - clarity        # Clarity of requirements
+      - simplicity     # Minimal interfaces
+      - distributed    # Distributed systems
+      - pragmatism     # Get it working
+      - data-first     # Data structures first thinking
+      - correctness    # Correctness, invariants
+      - abstraction    # Type contracts
+      - resilience     # Antifragility, black swans
+      - failure        # Learn from failures
+      - safety         # Safety as system property
+
+  structure:
+    description: Design data structures and types before code
+    experts:
+      - data-first     # Data structures first
+      - correctness    # Invariants, formal correctness
+      - abstraction    # Substitution principle
+      - java           # API/data structure design
+      - design-patterns # Structural patterns
+      - pragmatism     # Get it working
+
+  implement:
+    description: Write the code
+    experts:
+      - pragmatism     # Get it working first
+      - clarity        # Keep it readable
+      - simplicity     # Composition over complexity
+      - composition    # Unix philosophy, pipelines
+      - distributed    # Failure handling
+      - optimization   # Performance awareness
+      # Language-specific loaded from profile
+
+  test:
+    description: Write tests for implemented code (tests follow code, not TDD)
+    experts:
+      - test-doubles   # xUnit patterns, test doubles
+      - test-strategy  # Test pyramid, test strategy
+      - react-test     # Testing Trophy, integration focus
+      - angular-core   # Testable code design
+      - legacy         # Characterization tests for existing code
+
+  refactoring:
+    description: Simplify and clean up, verify still works
+    experts:
+      - clarity        # Simplify, clarify
+      - pragmatism     # Remove cruft
+      - legacy         # Safe refactoring with seams
+      - design-patterns # Pattern-based refactoring
+      - simplicity     # Reduce interfaces
+      - refactoring    # Wrote the book
+      - style          # Universal formatting and clarity
+
+  code-review:
+    description: Independent code review via Gemini - bugs, edge cases, quality
+    # No Claude experts - Gemini handles the review
+    # Runs on security-sensitive items for extra scrutiny
+    experts: []
+
+  static-analysis:
+    description: Run Qodana analyzer, fix issues found
+    # No Claude experts - Qodana handles static analysis
+    experts: []
+
+  doc-code:
+    description: Document the completed work
+    experts:
+      - docs           # Diataxis framework
+      - brevity        # Omit needless words
+      - prose          # Clarity, simplicity
+      - editing        # Kill your darlings
+      - clarity        # Clear explanation
+
+  # Post-loop phases (run once at end of PRD, not per-item)
+  production-readiness:
+    description: Final production readiness check
+    # Uses its own comprehensive checklist
+    experts: []
+
+  security-review:
+    description: Adversarial security review - think like an attacker
+    # Uses Gemini with security focus
+    experts: []
+
+# Ralph loops through phases in this order:
+# (matches PHASE_ORDER in cli/src/ralph/types.ts)
+ralph-sequence:
+  - plan
+  - structure
+  - implement
+  - refactoring
+  - code-review
+  - static-analysis
+  - test
+  - doc-code
+
+# Post-loop phases run once after all items complete
+post-loop:
+  - production-readiness
+  - security-review

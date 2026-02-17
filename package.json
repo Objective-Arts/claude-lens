@@ -1,0 +1,25 @@
+{
+  "name": "claude-lens",
+  "version": "1.0.0",
+  "description": "Full Claude Code quality toolkit. 13-dimension scanner, workflow pipeline, canon expertise, rubric system.",
+  "scripts": {
+    "postinstall": "./install.sh"
+  },
+  "files": [
+    "skills/",
+    "canon/",
+    "phases/",
+    "rubric/",
+    "config/",
+    "scripts/",
+    "lessons.md",
+    "install.sh"
+  ],
+  "keywords": [
+    "claude-code",
+    "code-quality",
+    "workflow",
+    "skill"
+  ],
+  "license": "MIT"
+}
